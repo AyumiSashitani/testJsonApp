@@ -1,28 +1,21 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.testjson.Data;
-import com.example.testjson.Service;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.view.View;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
-
-import org.json.JSONException;
-
-import java.io.IOException;
-
 public class MainActivity extends AppCompatActivity {
+
+    private String descriptionText =
+            "本アプリはJSONPlaceHolderの特定のAPIにアクセスし、JSONで値を取得します。湯得した値はjackSONでJavaオブジェクトにパースして画面表示しています。" +
+                    "値を取得するには以下の「API取得」ボタンを押下して下さい。";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,61 +24,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        //アプリ説明テキスト表示
+        final TextView descriptionView = findViewById(R.id.descriptionText);
+        descriptionView.setText(descriptionText);
 
-        Thread thread = new Thread(new Runnable() {
+        //APIボタン設定
+        Button apiButton = findViewById(R.id.apiButton);
+        apiButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
-            public void run() {
-                try  {
-                    Service service = new Service();
-                    try {
-                        //通信処理実施
-                        final Data data = service.execute();
-
-                        final TextView userIdView = findViewById(R.id.userIdText);
-                        final TextView idView = findViewById(R.id.idText);
-                        final TextView titleView = findViewById(R.id.titleText);
-                        final TextView bodyView = findViewById(R.id.bodyText);
-
-                        runOnUiThread(new Runnable() {
-
-                            @Override
-                            public void run() {
-
-                                userIdView.setText("userId : " + data.getUserId());
-                                idView.setText("id : " + data.getId());
-                                titleView.setText("title : " + data.getTitle());
-                                bodyView.setText("body : " + data.getBody());
-                                // Stuff that updates the UI
-
-                            }
-                        });
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    //Your code goes here
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), SecondActivity.class);
+                startActivity(intent);
             }
         });
-
-        thread.start();
-
-
-
-
     }
 
     @Override
