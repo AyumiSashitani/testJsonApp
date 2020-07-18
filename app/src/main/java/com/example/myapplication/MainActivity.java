@@ -14,8 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private String descriptionText =
-            "本アプリはJSONPlaceHolderの特定のAPIにアクセスし、JSONで値を取得します。湯得した値はjackSONでJavaオブジェクトにパースして画面表示しています。" +
-                    "値を取得するには以下の「API取得」ボタンを押下して下さい。";
+            "本アプリはJSONPlaceHolderの特定のAPIにOKHTTPを用いてアクセスし、JSONの値を取得します。取得した値はjacksonでJavaオブジェクトにパースしてから画面に表示しています。" +
+                    "実際に値を取得するには以下の「API実行」ボタンを押下して下さい。";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
